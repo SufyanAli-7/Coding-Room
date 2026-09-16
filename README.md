@@ -1,6 +1,6 @@
-﻿# 🚀 Coding Room — Real-Time Collaborative Code Editor
+# 🚀 Coding Room — Real-Time Collaborative Code Editor
 
-<div align=center>
+<div align="center">
 
 ![Coding Room Logo](Client/public/logo.png)
 
@@ -20,37 +20,37 @@
 
 ## 🌟 Overview
 
-**Coding Room** is a full-stack collaborative platform that allows multiple developers to write, edit, and review code together simultaneously in real time.
+**Coding Room** is a modern full-stack collaborative code editing platform that empowers developers to write, inspect, and pair-program simultaneously in real time.
 
-Built on **Yjs CRDTs (Conflict-free Replicated Data Types)**, every keystroke is synchronized seamlessly across connected peers without merge conflicts or text overwrites.
+Built on top of **Yjs CRDTs (Conflict-free Replicated Data Types)**, every keystroke is synchronized seamlessly across all connected peers with zero merge conflicts and instant updates.
 
 ---
 
-## ✨ Key Highlights
+## ✨ Key Features
 
 - ⚡ **Conflict-Free Real-Time Collaboration**: Multi-user simultaneous editing powered by **Yjs** & **y-monaco**.
 - 👥 **Live Presence & Awareness**: Real-time tracking of connected peers, user avatars, and online status.
-- 📱 **Adaptive & Mobile-Responsive**: Beautiful desktop layout with sidebar and touch-optimized slide-over drawer for mobile devices.
+- 📱 **Adaptive & Mobile-Responsive**: Desktop sidebar layout with touch-friendly slide-over drawer for mobile devices.
 - 🔗 **Instant Room Sharing**: Share rooms easily using the native **Web Share API** or one-click clipboard copy.
-- 🎨 **Obsidian Dark Aesthetic**: Modern cyberpunk dark mode with glassmorphic cards and glowing cyber-amber highlights.
-- 🩺 **Liveness Monitoring**: Built-in health check endpoint (/health) for uptime probes.
+- 🎨 **Obsidian Dark Aesthetic**: Modern cyberpunk theme with glassmorphic cards and cyber-amber accents.
+- 🩺 **Liveness Monitoring**: Built-in health check endpoint (`/health`) for uptime probes.
 
 ---
 
 ## 🏗️ Architecture
 
-`	ext
+```text
 [ Browser Client A ] <==== WebSocket ====> [ Express + YSocketIO Server ] <==== WebSocket ====> [ Browser Client B ]
    (React 19 + Monaco)                           (Node.js + Socket.IO)                            (React 19 + Monaco)
            |                                                |                                                |
         [ Yjs ] ---------------------------- State Sync (CRDT) ------------------------------------------ [ Yjs ]
-`
+```
 
 ---
 
 ## 📁 Repository Structure
 
-`	ext
+```text
 coding-room/
 ├── Client/                  # Frontend SPA (React 19 + Vite + Tailwind v4 + Monaco)
 │   ├── public/              # Static assets & brand logo
@@ -61,50 +61,50 @@ coding-room/
 │   └── README.md            # Client-specific documentation
 │
 ├── Server/                  # Backend service (Node.js + Express 5 + Socket.io + YSocketIO)
-│   ├── public/              # Production frontend bundle
+│   ├── public/              # Static & production frontend bundle
 │   ├── server.js            # Express server & WebSocket handler
-│   ├── vercel.json          # Vercel configuration
+│   ├── vercel.json          # Deployment configuration
 │   ├── package.json         # Server dependencies
 │   └── README.md            # Server-specific documentation
 │
 ├── .gitignore               # Root git ignore rules
 └── README.md                # Root project documentation
-`
+```
 
 ---
 
 ## 🚀 Quick Start (Local Development)
 
-### 1. Clone & Navigate
+### 1. Clone the Repository
 
-`ash
-git clone <your-repository-url>
+```bash
+git clone https://github.com/SufyanAli-7/Coding-Room.git
 cd coding-room
-`
+```
 
 ### 2. Start Backend Server
 
 In a new terminal:
 
-`ash
+```bash
 cd Server
 npm install
 npm run dev
-`
+```
 
-*Server starts on http://localhost:3000 (WebSocket endpoint).*
+*Server starts on `http://localhost:3000` (WebSocket & Health endpoint).*
 
 ### 3. Start Frontend Client
 
 In a second terminal:
 
-`ash
+```bash
 cd Client
 npm install
 npm run dev
-`
+```
 
-*Frontend dev server starts on http://localhost:5173.*
+*Frontend dev server starts on `http://localhost:5173`.*
 
 ---
 
@@ -112,20 +112,19 @@ npm run dev
 
 ### 1. Build Client
 
-`ash
+```bash
 cd Client
 npm run build
-`
+```
 
-Copy the generated Client/dist/ contents into Server/public/.
+Copy the generated `Client/dist/` contents into `Server/public/`.
 
 ### 2. Deploy Server (Recommended: Render / Railway)
 
 Because real-time collaboration relies on persistent WebSocket connections:
 - **Render.com** (Free Web Service) or **Railway.app** are strongly recommended.
-- Run command: 
-pm start
-- Port: Uses process.env.PORT automatically.
+- Start command: `npm start`
+- Port: Automatically binds to `process.env.PORT`.
 
 ---
 
