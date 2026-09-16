@@ -60,7 +60,8 @@ function App() {
 
   useEffect(() => {
     if (username) {
-      const provider = new SocketIOProvider("/", "monaco", ydoc, {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "/"
+      const provider = new SocketIOProvider(backendUrl, "monaco", ydoc, {
         autoConnect: true,
       })
 

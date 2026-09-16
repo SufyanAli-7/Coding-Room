@@ -1,4 +1,4 @@
-# 🚀 Coding Room — Server (Backend)
+# 🚀 Coding Room — Server (Backend & Full-Stack Host)
 
 <div align="center">
 
@@ -19,8 +19,9 @@ The backend service for **Coding Room**, powering real-time multi-user document 
 ## ✨ Features
 
 - 🔄 **Real-Time CRDT Synchronization**: Integrates `y-socket.io` server-side handler for flawless document persistence and conflict-free collaboration across all connected clients.
-- 📡 **WebSocket Room Communication**: Built on `socket.io` with configurable CORS support for local development and remote deployments.
+- 📡 **WebSocket Room Communication**: Built on `socket.io` with configurable CORS support for both same-origin and cross-origin deployments.
 - 👥 **Awareness Protocol**: Synchronizes peer presence, usernames, and active states in real time.
+- 🌐 **Full-Stack SPA Serving**: Automatically serves the compiled frontend bundle from `public/` and handles SPA client-side routing.
 - 🩺 **Health Check API**: Lightweight REST endpoint (`/health`) for uptime tracking and cloud deployment liveness probes.
 - ⚡ **Auto-Reloading Development**: Configured with `nodemon` for instant hot-reload upon file changes.
 
@@ -44,7 +45,7 @@ The backend service for **Coding Room**, powering real-time multi-user document 
 Server/
 ├── server.js            # Main application entry (HTTP, Socket.io, YSocketIO)
 ├── package.json         # Project dependencies, scripts & ESM configuration
-├── public/              # Static public assets (optional)
+├── public/              # Production client bundle (index.html, assets, logo)
 └── README.md            # Documentation and setup instructions
 ```
 
@@ -89,6 +90,26 @@ npm start
 
 ---
 
+## ☁️ Deployment on Render (Recommended)
+
+Render is strongly recommended because it supports persistent WebSocket connections and long-running Node processes:
+
+1. Sign in to **[Render.com](https://render.com/)**.
+2. Click **New +** and select **Web Service**.
+3. Connect your GitHub repository (`Coding-Room`).
+4. Configure the service:
+   - **Name:** `coding-room` (or your preferred name)
+   - **Root Directory:** `Server`
+   - **Runtime:** `Node`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Instance Type:** `Free`
+5. Click **Create Web Service**.
+
+> **Note:** Because the production client bundle is already included inside `Server/public/`, Render will serve **both** the frontend application and the WebSocket server from a single domain.
+
+---
+
 ## 🌐 API & Socket Reference
 
 ### REST Endpoints
@@ -116,16 +137,8 @@ Verifies server health and operational status.
 
 ## ⚙️ Configuration
 
-- **Port**: Default is `3000` (defined in `server.js`).
-- **CORS**: Currently configured with open wildcard (`*`) origin for convenient development. Update `origin` in `server.js` before deploying to a production domain:
-  ```javascript
-  const io = new Server(httpServer, {
-    cors: {
-      origin: ["https://your-production-domain.com"],
-      methods: ["GET", "POST"]
-    }
-  })
-  ```
+- **Port**: Default is `3000` (defined in `server.js`), or dynamically provided via `process.env.PORT`.
+- **CORS**: Configured with wildcard (`*`) origin by default to accommodate both same-origin and cross-domain clients.
 
 ---
 

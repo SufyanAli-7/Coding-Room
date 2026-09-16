@@ -61,9 +61,8 @@ coding-room/
 │   └── README.md            # Client-specific documentation
 │
 ├── Server/                  # Backend service (Node.js + Express 5 + Socket.io + YSocketIO)
-│   ├── public/              # Static & production frontend bundle
+│   ├── public/              # Built frontend SPA assets (served automatically)
 │   ├── server.js            # Express server & WebSocket handler
-│   ├── vercel.json          # Deployment configuration
 │   ├── package.json         # Server dependencies
 │   └── README.md            # Server-specific documentation
 │
@@ -108,23 +107,24 @@ npm run dev
 
 ---
 
-## 📦 Production Deployment
+## 📦 Production Deployment (Render)
 
-### 1. Build Client
+Because real-time collaboration relies on persistent WebSocket connections, **Render.com** (Free Web Service) is recommended:
 
-```bash
-cd Client
-npm run build
-```
+### Deploy Full-Stack on Render
 
-Copy the generated `Client/dist/` contents into `Server/public/`.
+Since the client production build is already placed inside `Server/public/`, you can deploy the complete app as a single service on Render:
 
-### 2. Deploy Server (Recommended: Render / Railway)
+1. Create a new **Web Service** on [Render.com](https://render.com/).
+2. Select your `Coding-Room` repository.
+3. Configure the service:
+   - **Root Directory:** `Server`
+   - **Environment:** `Node`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+4. Click **Create Web Service**.
 
-Because real-time collaboration relies on persistent WebSocket connections:
-- **Render.com** (Free Web Service) or **Railway.app** are strongly recommended.
-- Start command: `npm start`
-- Port: Automatically binds to `process.env.PORT`.
+Render will serve both your frontend UI and the real-time WebSocket connection under one URL!
 
 ---
 
